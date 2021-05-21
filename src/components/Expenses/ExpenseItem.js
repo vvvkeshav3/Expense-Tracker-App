@@ -8,14 +8,11 @@ const ExpenseItem = (props) => {
   // useState() must be called inside of the component, we can not call it inside of handler or return
   const [title, setTitle] = useState(props.title);
   
-  console.log('ExpenseItem evaluated by React');
-
   const clickHandler = () => {
     // or function clickHandler(){}
     setTitle('Updated!!!');
     console.log(title); // It will be a before value of title, because setTitle doesnot change it right now it is scheduled later.
-    
-
+  
   };
 
   return (

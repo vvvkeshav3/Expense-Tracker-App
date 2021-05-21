@@ -24,21 +24,28 @@ const App = () => {
       date: new Date(2021, 5, 12),
     },
   ];
-    return (
-      <div>
-        <NewExpense />
-        <Expenses expenses={expenses} />
-      </div>
-    );
+
+  const addExpenseHandler = (expense) => {
+    console.log('In App.js');
+    console.log(expense);
+  };
+
+  return (
+    <div>
+      <NewExpense onAddExpense={addExpenseHandler} />
+      {/* Lifting the state up */}
+      <Expenses expenses={expenses} />
+    </div>
+  );
 
   //   Under the hood this return statement converted to
 
-//   return React.createElement(
-//     'div',
-//     {},
-//     React.createElement('h2', {}, "Let's get started!"),
-//     React.createElement(Expenses, {expenses: expenses })
-//   );
-}
+  //   return React.createElement(
+  //     'div',
+  //     {},
+  //     React.createElement('h2', {}, "Let's get started!"),
+  //     React.createElement(Expenses, {expenses: expenses })
+  //   );
+};
 
 export default App;

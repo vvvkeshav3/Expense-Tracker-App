@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ExpenseForm.css';
 
-const ExpenseForm = () => {
+const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState('');
   const [enteredAmount, setEnteredAmount] = useState('');
   const [enteredDate, setEnteredDate] = useState('');
@@ -50,39 +50,41 @@ const ExpenseForm = () => {
     setEnteredDate(event.target.value);
   };
 
-  const submitHandler = (event) =>{
-
+  const submitHandler = (event) => {
     event.preventDefault(); // built in JS (nothing to do with react)
     // it is the default behaviour in the browser that
-    // if you do click the button of submit in form 
-    // the page reloads because browser automatically sends 
-    // request wheneven a form is submit to the server who is 
+    // if you do click the button of submit in form
+    // the page reloads because browser automatically sends
+    // request wheneven a form is submit to the server who is
     // hosting this page
 
     const expenseData = {
-      title : enteredTitle,
-      amount : enteredAmount,
-      date : new Date(enteredDate)
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate),
     };
 
-    console.log(expenseData);
-     
+    props.onSaveExpenseData(expenseData); // Lifting the state up
+
     setEnteredTitle('');
     setEnteredAmount('');
     setEnteredDate('');
     // To change the form input back to empty
-
-  }
+  };
 
   return (
     <form onSubmit={submitHandler}>
-    {/* it is the better approach to use onSubmit here instead on a button */} 
+      {/* it is the better approach to use onSubmit here instead on a button */}
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
           {/* when we change the input it will also change the input contents */}
           {/* So we are listening the change and change the value of input as well this is called as 2-way binding  */}
-          <input type="text" value={enteredTitle} onChange={titleChangeHandler} />
+          <input
+            type="text"
+            value={enteredTitle}
+            onChange={titleChangeHandler}
+          />
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
@@ -90,7 +92,7 @@ const ExpenseForm = () => {
             type="number"
             min="0.01"
             step="0.01"
-            value = {enteredAmount}
+            value={enteredAmount}
             onChange={amountChangeHandler}
           />
         </div>
@@ -100,18 +102,19 @@ const ExpenseForm = () => {
             type="date"
             min="2019-01-01"
             max="2022-12-31"
-            value = {enteredDate}
+            value={enteredDate}
             onChange={dateChangeHandler}
           />
         </div>
       </div>
       <div className="new-expense__actions">
-        <button type="submit" 
-        // onClick={addExpenseHandler}
-        // It is not the best approach
-        // because there is a default behaviour built into browser and built into forms on web pages
-        // that if the button especially with type Submit is pressed inside of the form 
-        // then the form element will emit an event which we can listen***
+        <button
+          type="submit"
+          // onClick={addExpenseHandler}
+          // It is not the best approach
+          // because there is a default behaviour built into browser and built into forms on web pages
+          // that if the button especially with type Submit is pressed inside of the form
+          // then the form element will emit an event which we can listen***
         >
           Add Expense
         </button>
